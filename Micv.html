@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gladys Arlet | Mi CV </title>
+    <style>
+        /* =====================================
+           ESTILOS BASE Y VARIABLES MODERNAS
+           ===================================== */
+        :root {
+            --color-primary: #102A43; /* Azul Marino Profundo - Confianza */
+            --color-accent: #00AEEF; /* Cian Eléctrico - Innovación */
+            --color-secondary-accent: #FFD700; /* Dorado sutil para texto destacado */
+            --color-background: #F0F4F8; /* Gris Claro Moderno */
+            --color-light: #FFFFFF;
+            --color-text: #333333;
+            --font-main: 'Arial', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden; /* Evita scroll horizontal en móvil */
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Utilidad de Flexbox para la estructura de la navegación */
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* =====================================
+           COMPONENTES COMUNES Y ANIMACIONES
+           ===================================== */
+        header {
+            background-color: var(--color-light);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            display: inline-block;
+            padding: 18px 15px;
+            color: var(--color-text);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s, background-color 0.3s, border-bottom 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--color-accent);
+            border-bottom: 3px solid var(--color-accent);
+        }
+
+        .section-title {
+            font-size: 3em;
+            font-weight: 900;
+            color: var(--color-primary);
+            border-bottom: 6px solid var(--color-accent);
+            padding-bottom: 10px;
+            margin-bottom: 50px;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        section {
+            padding: 100px 0;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        /* Botones de acción principal */
+        .btn-primary {
+            background-color: var(--color-accent);
+            color: var(--color-primary);
+            padding: 15px 30px;
+            border-radius: 50px; /* Forma de píldora moderna */
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+            box-shadow: 0 8px 15px rgba(0, 174, 239, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #008DBC;
+            color: var(--color-light);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 20px rgba(0, 174, 239, 0.6);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* =====================================
+           1. SECCIÓN BIENVENIDA Y GRÁFICA
+           ===================================== */
+        #bienvenida {
+            background: linear-gradient(135deg, var(--color-light) 0%, var(--color-background) 100%);
+            padding-top: 150px;
+            padding-bottom: 100px;
+        }
+
+        .welcome-content {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .welcome-text h2 {
+            font-size: 4.5em;
+            font-weight: 900;
+            margin: 0 0 15px 0;
+            line-height: 1;
+        }
+
+        .welcome-text strong {
+            color: var(--color-accent);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Contenedor del Diagrama */
+        .trajectory-chart {
+            background-color: var(--color-light);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(16, 42, 67, 0.1);
+            border: 1px solid #E0E0E0;
+        }
+
+        .chart-bar-container {
+            flex-grow: 1;
+            height: 30px;
+            background-color: #E6EBF0; /* Fondo de la barra gris claro */
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .chart-bar {
+            height: 100%;
+            border-radius: 8px;
+            /* Se ha eliminado la transición de ancho aquí para que sea estático */
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            color: var(--color-light);
+            font-weight: bold;
+            opacity: 1; /* Siempre visible */
+        }
+
+        /* CORRECCIÓN: CLASES DEDICADAS PARA COLORES DE BARRAS */
+        /* Al usar clases, el color se define de manera robusta sin depender de JS */
+        .bar-accent {
+            background-color: #00AEEF; 
+        }
+        .bar-primary {
+            background-color: #102A43; 
+        }
+        .bar-mastery {
+            background-color: #4CAF50; /* Verde directo */
+        }
+        
+        /* =====================================
+           2. SECCIÓN PROYECTOS (3D Hover)
+           ===================================== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            background-color: var(--color-light);
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s;
+            text-decoration: none;
+            display: block;
+            perspective: 1000px; 
+            transform-style: preserve-3d;
+        }
+
+        .project-card:hover, .project-card:active {
+            transform: translateY(-10px) rotateX(2deg) rotateY(-2deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-card img {
+            width: 100%; /* Asegura que la imagen ocupe el 100% del contenedor */
+            height: 200px; /* Altura fija para consistencia en desktop */
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+            filter: grayscale(10%);
+            transition: filter 0.3s;
+        }
+
+        .project-card:hover img {
+            filter: grayscale(0%);
+        }
+
+        /* =====================================
+           3. SECCIÓN HERRAMIENTAS (CARRUSEL)
+           ===================================== */
+        .carousel-container {
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.05);
+            border-radius: 15px;
+            background-color: var(--color-light);
+            overflow: hidden; /* Importante para el carrusel */
+        }
+        
+        .carousel-track {
+            display: flex;
+            width: fit-content;
+            animation: scroll-left 40s linear infinite; /* Animación CSS de scroll infinito */
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } 
+        }
+
+        .tool-logo-wrapper {
+            flex-shrink: 0;
+            /* Se establece un ancho para mobile-first. Se ajustará en media query. */
+            width: 90px; 
+            text-align: center;
+            padding: 15px 5px; /* Padding ajustado para mobile-first */
+            transition: transform 0.3s, filter 0.3s;
+        }
+        
+        /* SOLUCIÓN: Ajustar el tamaño de la imagen del carrusel */
+        .tool-logo-wrapper img {
+            /* Hacer que la imagen sea sensible al contenedor */
+            width: 100%; 
+            /* Limitar el tamaño máximo de la imagen para que no exceda 60px/70px */
+            max-width: 60px;
+            height: auto; /* Mantener la proporción */
+            display: block; /* Para centrarla mejor con margin auto */
+            margin: 0 auto 5px auto; /* Centrar la imagen y añadir espacio debajo */
+            border-radius: 5px;
+        }
+        /* FIN SOLUCIÓN */
+
+        .tool-logo-wrapper:hover {
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 5px var(--color-accent)); 
+        }
+        
+        /* Detener animación en hover */
+        .carousel-container:hover .carousel-track {
+            animation-play-state: paused;
+        }
+
+        /* =====================================
+           4. SECCIÓN DESPEDIDA Y FOOTER
+           ===================================== */
+        #contacto {
+            background: linear-gradient(45deg, var(--color-primary), #1C4D6B);
+            color: var(--color-light); /* Texto blanco */
+            margin: 50px auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        #contacto a {
+            color: var(--color-secondary-accent);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        #contacto a:hover {
+            color: var(--color-light);
+            text-decoration: underline;
+        }
+
+        /* =====================================
+           RESPONSIVE DESIGN (MOBILE FIRST)
+           ===================================== */
+        @media (max-width: 900px) {
+            
+            /* Layout General */
+            section {
+                padding: 60px 0; /* Menos padding en secciones */
+            }
+
+            /* Header y Nav funcional en móvil */
+            header .flex-container {
+                flex-direction: column; /* Apila el nombre y el nav */
+                align-items: center; /* Centra los elementos */
+                padding-bottom: 10px;
+            }
+            
+            header h1 {
+                font-size: 1.5em !important;
+                margin: 10px 0; /* Ajuste de margen */
+            }
+
+            nav {
+                display: flex;
+                flex-wrap: wrap; /* Permite que los enlaces se ajusten */
+                justify-content: center; /* Centra los enlaces */
+                width: 100%;
+            }
+
+            nav a {
+                padding: 5px 10px; /* Reduce el padding de los enlaces */
+                font-size: 0.9em;
+                border-bottom: 2px solid transparent; /* Quita el borde grande */
+            }
+            nav a:hover {
+                border-bottom: 2px solid var(--color-accent); /* Borde de hover más sutil */
+            }
+
+            /* Bienvenida */
+            .welcome-content {
+                grid-template-columns: 1fr; /* Una columna en móvil */
+                gap: 40px; 
+            }
+
+            .welcome-text h2 {
+                font-size: 2.8em; /* Reducir tamaño de título */
+            }
+            
+            /* Títulos */
+            .section-title {
+                font-size: 2em; /* Reducir tamaño de título de sección */
+                margin-bottom: 30px;
+            }
+
+            /* Proyectos: Reducción de altura de imagen para móvil */
+            .project-card img {
+                height: 150px; /* Más compacto en móvil */
+            }
+
+            /* Gráfica */
+            .trajectory-chart {
+                padding: 20px;
+            }
+            
+            .chart-label {
+                width: 100px; 
+                font-size: 0.8em;
+            }
+
+            /* Carrusel (Mobile/Tablet) */
+            .tool-logo-wrapper {
+                /* Usamos el ancho de 90px de la definición inicial para móvil */
+                width: 90px; 
+                padding: 15px 5px;
+            }
+            .tool-logo-wrapper img {
+                /* Aseguramos un tamaño consistente en móvil */
+                max-width: 50px; 
+            }
+            .tool-logo-wrapper p {
+                font-size: 0.75em;
+            }
+
+            /* Despedida */
+            #contacto h2 {
+                font-size: 2em;
+            }
+            #contacto p { /* Reducir tamaño de texto en móvil */
+                font-size: 1.1em;
+            }
+            .btn-primary {
+                padding: 12px 20px;
+                font-size: 0.9em;
+            }
+        }
+        
+        /* SOLUCIÓN: Media Query para Desktop (Pantallas grandes) */
+        @media (min-width: 901px) {
+            .tool-logo-wrapper {
+                /* Aumentamos el ancho del contenedor en PC */
+                width: 120px; 
+                padding: 20px 10px;
+            }
+            .tool-logo-wrapper img {
+                /* Aumentamos el tamaño máximo de la imagen en PC */
+                max-width: 70px; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container flex-container">
+            <h1 style="font-size: 2em; font-weight: 900; color: var(--color-accent); margin: 15px 0;">Bienvenid@s</h1>
+            <nav>
+                <a href="#bienvenida">Inicio</a>
+                <a href="#proyectos">Proyectos</a>
+                <a href="#herramientas">Skills Digitales</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <section id="bienvenida">
+            <div class="container">
+                <div class="welcome-content">
+                    <div class="welcome-text">
+                        <p style="font-size: 1.2em; color: #666; margin-bottom: 5px;">Transformando la Estrategia con Tecnología</p>
+                        <h2>Gladys Arlet <span style="color: var(--color-accent);">Martínez Caballero.</span></h2>
+                        <p style="font-size: 1.4em; margin: 30px 0;">
+                            Licenciada en Administración de Ventas, actualmente cursando la <strong>Maestría en Innovación Empresarial</strong>, con base técnica en programación. 
+</p>
+<p style="font-size: 1.4em; margin: 30px 0;">
+Creo firmemente en el aprendizaje constante, en el trabajo colaborativo y en la capacidad de transformar los retos en oportunidades.
+                        </p>
+                        <a href="#proyectos" class="btn-primary">Ver Habilidades Digitales</a>
+                    </div>
+                    
+                    <div class="trajectory-chart">
+                        <h3 style="font-size: 1.6em; color: var(--color-primary); margin-top: 0; border-bottom: 2px solid #E0E0E0; padding-bottom: 10px;">Mi Trayectoria de Valor</h3>
+                        
+                        <div class="chart-item flex-container" style="margin-bottom: 25px;">
+                            <span class="chart-label">Carrera Técnica en Programación</span>
+                            <div class="chart-bar-container">
+                                <div id="bar-1" class="chart-bar bar-accent" style="width: 100%; padding-right: 15px;">
+                                    Finalizado (2020)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chart-item flex-container" style="margin-bottom: 25px;">
+                            <span class="chart-label">Licenciatura en Admin. de Ventas</span>
+                            <div class="chart-bar-container">
+                                <div id="bar-2" class="chart-bar bar-primary" style="width: 100%; padding-right: 15px;">
+                                    Finalizado (2023)
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-item flex-container">
+                            <span class="chart-label">Maestría en Innovación Empresarial</span>
+                            <div class="chart-bar-container">
+                                <div id="bar-3" class="chart-bar bar-mastery" style="width: 60%; padding-right: 15px;">
+                                    Cursando
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proyectos">
+            <div class="container">
+                <h2 class="section-title">Portafolio de Proyectos y Skills</h2>
+                <p style="font-size: 1.2em; margin-bottom: 50px; color: #555;">
+                    Cada proyecto es la prueba de mi capacidad para fusionar la estrategia de ventas con la ejecución técnica y el liderazgo en innovación.
+                </p>
+
+                <div class="projects-grid">
+                    <a href="https://fiesta-infantil.my.canva.site/nuestra-boda" target="_blank" class="project-card">
+                        <img src="web.jpg" alt="Imagen de sitio web Canva">
+                        <div class="project-info" style="padding: 20px;">
+                            <h3>Diseño y Despliegue de Sitios Web con Canva</h3>
+                            <p>Planificación y ejecución de sitios web dinámicos, combinando diseño atractivo y enfoque estratégico para optimizar la experiencia del usuario y cumplir objetivos de comunicación y marketing.</p>
+                        </div>
+                    </a>
+
+
+
+
+  <a href="https://www.canva.com/design/DAGHT1vZ6Cs/upTNLMjrTBDzpjtVoYvz6g/watch?utm_content=DAGHT1vZ6Cs&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h1b47b17382"_blank" class="project-card">
+                        <img src="flyer.jpg" alt="Imagen de código de programación o dashboard">
+                        <div class="project-info" style="padding: 20px;">
+                            <h3>Creación de Flyers y Material Publicitario</h3>
+                            <p>Diseño estratégico de flyers y publicaciones digitales, combinando creatividad y técnicas de marketing para maximizar impacto visual y engagement del público.</p>
+                        </div>
+                    </a>
+
+
+
+                    <a href="https://alejandro2892002.github.io/consultorio-dental.github.io/" target="_blank" class="project-card">
+                        <img src="dentista1.jpg" alt="Imagen de código de programación o dashboard">
+                        <div class="project-info" style="padding: 20px;">
+                            <h3>Gestión y Venta de Proyectos Web</h3>
+                            <p>Identificación de oportunidades y venta directa de proyectos de sitios web, aplicando estrategias de innovación empresarial y habilidades comerciales para ofrecer soluciones digitales efectivas a los clientes.</p>
+                        </div>
+                    </a>
+
+
+
+
+
+                    <a href="https://youtu.be/JWcFcJUfWaM?si=bvvl3GoytDHRb0MD" target="_blank" class="project-card">
+                        <img src="ia.jpg" alt="Imagen de una persona usando herramientas de IA">
+                        <div class="project-info" style="padding: 20px;">
+                            <h3>Proyecto Multimedia con IA y Edición</h3>
+                            <p>Gestión completa de un proyecto multimedia: desde el contenido generado por IA hasta la producción final en Filmora y Adobe Audition.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="herramientas">
+            <div class="container">
+                <h2 class="section-title">Fluidez Digital e Innovación</h2>
+                <p class="tools-description" style="font-weight: 500; padding: 20px; border-left: 6px solid var(--color-accent); background-color: var(--color-light); border-radius: 8px;">
+                    Mi expertise reside en la habilidad de <b>adoptar rápidamente nuevas tecnologías.</b> Utilizo <b>Inteligencia Artificial</b> como catalizador de eficiencia, domino las herramientas multimedia y de productividad para garantizar una ejecución impecable en todos los frentes.
+                </p>
+
+                <div class="carousel-container" style="margin-top: 50px;">
+                    <div class="carousel-track" id="tools-track">
+                        <div class="tool-logo-wrapper"><img src="gemini2.png" alt="Gemini Logo"> <p>Gemini IA</p></div>
+                        <div class="tool-logo-wrapper"><img src="chatgpt2.png"> <p>Open AI</p></div>
+                        <div class="tool-logo-wrapper"><img src="excel.jpg" alt="Excel Logo"> <p>Excel</p></div>
+                        <div class="tool-logo-wrapper"><img src="word2.png"> <p>Word</p></div>
+                        <div class="tool-logo-wrapper"><img src="powerpoint2.png"> <p>PowerPoint</p></div>
+                        
+                        <div class="tool-logo-wrapper"><img src="gemini2.png" alt="Gemini Logo"> <p>Gemini IA</p></div>
+                        <div class="tool-logo-wrapper"><img src="chatgpt2.png"> <p>Open AI</p></div>
+                        <div class="tool-logo-wrapper"><img src="excel.jpg" alt="Excel Logo"> <p>Excel</p></div>
+                        <div class="tool-logo-wrapper"><img src="word2.png"> <p>Word</p></div>
+                        <div class="tool-logo-wrapper"><img src="powerpoint2.png"> <p>PowerPoint</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto">
+            <div class="container" style="text-align: center; padding: 60px 40px;">
+                <h2 style="font-size: 3em; color: var(--color-light); margin-bottom: 20px; text-shadow: 2px 2px 5px rgba(0,0,0,0.3);">¡Conectemos!</h2>
+                <p style="font-size: 1.3em; margin-bottom: 40px; opacity: 0.9;">
+                    Si buscas una profesional que combine <strong>visión comercial</strong> con <strong>eficiencia tecnológica</strong>, estoy lista para impulsar tu siguiente proyecto de innovación.
+                </p>
+                <a href="https://wa.me/525522550678" class="btn-primary" 
+   style="background-color: var(--color-secondary-accent); color: var(--color-primary); box-shadow: 0 8px 15px rgba(255, 215, 0, 0.5);"
+   target="_blank">
+    Contáctame Directo
+</a>
+            </div>
+        </section>
+    </main>
+
+    <footer style="text-align: center; padding: 20px 0; background-color: var(--color-primary); color: var(--color-light); font-size: 0.9em;">
+        <div class="container">
+            <p>&copy; 2024 Gladys Arlet Martinez Caballero. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.getElementById('tools-track');
+            const items = track.innerHTML;
+            // Duplica los elementos en el track para que la animación funcione en loop
+            track.innerHTML += items;
+        });
+    </script>
+
+
+
+
+
+
+
+
+<!-- Modal de carrusel para Creacion de flyer -->
+<div id="flyerModal" class="modal">
+    <span class="close" onclick="closeFlyerModal()">&times;</span>
+    <div class="modal-content">
+        <div class="carousel">
+            <img class="carousel-item active" src="route.png" alt="Imagen 1">
+            <img class="carousel-item" src="route2.png" alt="Imagen 2">
+            <img class="carousel-item" src="route3.png" alt="Imagen 3">
+            <!-- Agrega más imágenes si deseas -->
+        </div>
+        <button class="prev" onclick="changeFlyerSlide(-1)">&#10094;</button>
+        <button class="next" onclick="changeFlyerSlide(1)">&#10095;</button>
+    </div>
+</div>
+
+<style>
+/* Modal general */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+}
+.modal-content {
+    position: relative;
+    margin: 5% auto;
+    max-width: 800px;
+    width: 90%;
+}
+
+/* Carousel dentro del modal */
+.carousel {
+    position: relative;
+    overflow: hidden;
+}
+.carousel-item {
+    display: none;
+    width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+}
+.carousel-item.active { display: block; }
+
+/* Botones */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 24px;
+}
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* Botón cerrar */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close:hover { color: #ccc; }
+
+@media (max-width: 600px) {
+    .prev, .next { font-size: 18px; padding: 8px 12px; }
+}
+</style>
+
+<script>
+// Seleccionamos el <a> de Creacion de flyer
+const flyerLink = document.querySelectorAll('.projects-grid a')[1]; // es el segundo <a>
+flyerLink.addEventListener('click', function(e){
+    e.preventDefault(); // previene la redirección
+    openFlyerModal();
+});
+
+// Variables del carrusel
+let flyerSlideIndex = 0;
+const flyerSlides = document.querySelectorAll("#flyerModal .carousel-item");
+
+function openFlyerModal() {
+    document.getElementById("flyerModal").style.display = "block";
+    flyerSlideIndex = 0;
+    showFlyerSlide(flyerSlideIndex);
+}
+
+function closeFlyerModal() {
+    document.getElementById("flyerModal").style.display = "none";
+}
+
+function changeFlyerSlide(n) {
+    flyerSlideIndex += n;
+    if(flyerSlideIndex < 0) flyerSlideIndex = flyerSlides.length - 1;
+    if(flyerSlideIndex >= flyerSlides.length) flyerSlideIndex = 0;
+    showFlyerSlide(flyerSlideIndex);
+}
+
+function showFlyerSlide(n) {
+    flyerSlides.forEach((slide, index) => {
+        slide.classList.toggle("active", index === n);
+    });
+}
+
+// Cerrar modal al hacer click fuera del contenido
+window.onclick = function(event) {
+    if (event.target == document.getElementById("flyerModal")) {
+        closeFlyerModal();
+    }
+}
+</script>
+
+
+
+
+
+
+</body>
+</html>
